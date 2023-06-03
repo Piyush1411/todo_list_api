@@ -25,25 +25,25 @@ exports.createTask = asyncHandler(async (req, res) => {
 * @access Public 
 */
 exports.updateTask = asyncHandler(async (req, res) => {
-    const { task, active } = req.body
-    const existTask = await Todo.findOne({ _id: req.params.id });
-    if (existTask) {
+    const {task, active} = req.body
+    const existTask = await Todo.findOne({ _id : req.params.id})
+    if(existTask){
         existTask.task = task;
         existTask.active = active
         const updatedTask = await existTask.save();
-        res.status(200).jason({
+        res.status(200).json({
             success: true,
             data: updatedTask,
             message: 'Task is updated successfully'
         })
-    } else {
-        res.status(401).jason({
+    }else{
+        res.status(401).json({
             success: false,
             data: null,
-            message: 'Task is not found'
+            message: 'Task is Not Found'
         })
     }
-
+   
 })
 
 /**
