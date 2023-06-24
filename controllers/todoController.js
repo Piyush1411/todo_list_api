@@ -1,7 +1,9 @@
-const mongoose = require('mongoose');
-const asyncHandler = require('express-async-handler');
+// const mongoose = require('mongoose');
+// const asyncHandler = require('express-async-handler');
 
-const Todo = require('../models/todoModel');
+// const Todo = require('../models/todoModel.js');
+import asyncHandler from 'express-async-handler';
+import Todo from '../models/todoModel.js'
 
 /*
 * @desc For create Task
@@ -9,9 +11,9 @@ const Todo = require('../models/todoModel');
 * @access Public
 */
 
-exports.createTask = asyncHandler(async (req, res) => {
-    const { task, active } = req.body
-    const todo = await Todo.create({ task, active });
+const createTask = asyncHandler(async (req, res) => {
+    const {task, active} = req.body
+    const todo = await Todo.create({task, active});
     res.status(201).json({
         success: true,
         data: todo,
@@ -19,12 +21,13 @@ exports.createTask = asyncHandler(async (req, res) => {
     })
 })
 
+
 /*
 * @desc For update Task
 * @route /api/task 
 * @access Public 
 */
-exports.updateTask = asyncHandler(async (req, res) => {
+const updateTask = asyncHandler(async (req, res) => {
     const {task, active} = req.body
     const existTask = await Todo.findOne({ _id : req.params.id})
     if(existTask){
@@ -51,7 +54,7 @@ exports.updateTask = asyncHandler(async (req, res) => {
  * @route /api/task/:id
  * @access Public
  */
-exports.deleteTask = asyncHandler(async (req, res) => {
+const deleteTask = asyncHandler(async (req, res) => {
     const existTask = await Todo.findOne({ _id : req.params.id})
     if(existTask){
         await existTask.remove();
@@ -75,7 +78,7 @@ exports.deleteTask = asyncHandler(async (req, res) => {
  * @route /api/task/:id
  * @access Public
  */
- exports.getSingleTask = asyncHandler(async (req, res) => {
+const getSingleTask = asyncHandler(async (req, res) => {
     const existTask = await Todo.findOne({ _id : req.params.id})
     if(existTask){
         res.status(200).json({
@@ -100,7 +103,7 @@ exports.deleteTask = asyncHandler(async (req, res) => {
  * @route /api/task
  * @access Public
  */
- exports.getAllTasks = asyncHandler(async (req, res) => {
+const getAllTasks = asyncHandler(async (req, res) => {
     const allTasks = await Todo.find({})
     if(allTasks){
         res.status(200).json({
@@ -117,3 +120,5 @@ exports.deleteTask = asyncHandler(async (req, res) => {
     }
    
 })
+
+export{createTask , updateTask , deleteTask , getSingleTask ,getAllTasks };

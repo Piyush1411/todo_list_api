@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+import bcrypt from 'bcryptjs'
 
 const todoSchema = new mongoose.Schema({
     task: {
@@ -13,4 +14,4 @@ const todoSchema = new mongoose.Schema({
 
 const Todo = mongoose.model('Todo', todoSchema)
 
-module.exports = Todo
+export default Todo;

@@ -1,3 +1,4 @@
 Port = 5000
 Mode = development
 MONGO_URI = mongodb+srv://todo_list_app:list_todo@cluster0.mxpfj9r.mongodb.net/todo_list_app?retryWrites=true&w=majority 
+JWT_SECRET ='secret'
